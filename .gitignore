@@ -1,0 +1,15 @@
+# for vim
+*.sw[pon]
+
+# for python virtualenv
+venv/
+
+# for python
+*.py[cod]
+
+# for django
+migrations/
+db.*
+
+# for node
+node_modules/
