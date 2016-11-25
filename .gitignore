@@ -13,3 +13,6 @@ db.*
 
 # for node
 node_modules/
+
+# for sqlite & flask
+*.db
