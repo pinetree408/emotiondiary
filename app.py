@@ -1,5 +1,9 @@
-from flask import Flask, render_template, redirect, url_for, session, request
+from flask import Flask, g, render_template, redirect, url_for, session, request
 from flask_oauth import OAuth
+from flask.ext.sqlalchemy import SQLAlchemy
+from os import path
+
+import sqlite3
 
 SECRET_KEY = 'development key'
 DEBUG = True
@@ -10,6 +14,18 @@ app = Flask(__name__)
 app.debug = DEBUG
 app.secret_key = SECRET_KEY
 oauth = OAuth()
+
+BASE_DIRECTORY = path.abspath(path.dirname(__file__))
+dbURL = '{0}{1}'.format('sqlite:///', path.join(BASE_DIRECTORY, 'app.db'))
+app.config['SQLALCHEMY_DATABASE_URI'] = dbURL
+
+db = SQLAlchemy(app)
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    facebookID = db.Column(db.Unicode, unique=True)
+    name = db.Column(db.Unicode)
+
+db.create_all()
 
 facebook = oauth.remote_app('facebook',
     base_url='https://graph.facebook.com/',
@@ -23,6 +39,8 @@ facebook = oauth.remote_app('facebook',
 
 @app.route("/")
 def index():
+    if session.get('user'):
+        return render_template('index.html')
     return redirect(url_for('login'))
 
 @app.route('/login')
@@ -41,9 +59,17 @@ def facebook_authorized(resp):
         )
     session['oauth_token'] = (resp['access_token'], '')
     me = facebook.get('/me')
-    return 'Logged in as id=%s name=%s redirect=%s' % \
-        (me.data['id'], me.data['name'], request.args.get('next'))
-
+    # For test
+    if session.get('user'):
+        return redirect(url_for('index'))
+    user = User.query.filter_by(facebookID=me.data['id']).first()
+    print user
+    if not user:
+        user = User(facebookID=str(me.data['id']), name=me.data['name'])
+        db.session.add(user)
+        session['user'] = dict(name=user.name, facebookID=user.facebookID)
+    db.session.commit()
+    return redirect(url_for('index'))
 
 @facebook.tokengetter
 def get_facebook_oauth_token():
