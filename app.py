@@ -40,7 +40,8 @@ facebook = oauth.remote_app('facebook',
 @app.route("/")
 def index():
     if session.get('user'):
-        return render_template('index.html')
+        user = session.get('user')
+        return render_template('index.html', user = user)
     return redirect(url_for('login'))
 
 @app.route('/login')
@@ -63,7 +64,6 @@ def facebook_authorized(resp):
     if session.get('user'):
         return redirect(url_for('index'))
     user = User.query.filter_by(facebookID=me.data['id']).first()
-    print user
     if not user:
         user = User(facebookID=str(me.data['id']), name=me.data['name'])
         db.session.add(user)
