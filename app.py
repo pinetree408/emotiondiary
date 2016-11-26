@@ -1,6 +1,6 @@
 from flask import Flask, g, render_template, redirect, url_for, session, request
 from flask_oauth import OAuth
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 from os import path
 
 import sqlite3
@@ -18,6 +18,7 @@ oauth = OAuth()
 BASE_DIRECTORY = path.abspath(path.dirname(__file__))
 dbURL = '{0}{1}'.format('sqlite:///', path.join(BASE_DIRECTORY, 'app.db'))
 app.config['SQLALCHEMY_DATABASE_URI'] = dbURL
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 db = SQLAlchemy(app)
 class User(db.Model):
