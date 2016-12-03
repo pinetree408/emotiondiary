@@ -1,4 +1,9 @@
 {% extends "layout.html" %}
 
 {% block body %}
+  <div id="calendar"></div>
+{% endblock %}
+
+{% block script %}
+  <script src="{{ url_for('static', filename='js/diary.js')}}"></script>
 {% endblock %}
