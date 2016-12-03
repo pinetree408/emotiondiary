@@ -2,6 +2,7 @@ from flask import Flask, g, render_template, redirect, url_for, session, request
 from flask_oauth import OAuth
 from flask_sqlalchemy import SQLAlchemy
 from os import path
+from datetime import datetime, date, time
 
 import sqlite3
 
@@ -21,6 +22,14 @@ app.config['SQLALCHEMY_DATABASE_URI'] = dbURL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 db = SQLAlchemy(app)
+
+class Calendar(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text)
+    pub_date = db.Column(db.DateTime)
+
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     facebookID = db.Column(db.Unicode, unique=True)
@@ -47,7 +56,15 @@ def index():
 
 @app.route("/calendar")
 def calendar():
-    return render_template('calendar.html')
+    user = session.get('user')
+    calendar = Calendar.query.filter_by(user_id=user['id'], pub_date=datetime.today()).first()
+    if not calendar:
+        return redirect(url_for('calendar_create'))
+    return render_template('calendar/index.html')
+
+@app.route("/calendar/create")
+def calendar_create():
+    return render_template('calendar/create.html')
 
 @app.route('/login')
 def login():
@@ -72,7 +89,7 @@ def facebook_authorized(resp):
     if not user:
         user = User(facebookID=str(me.data['id']), name=me.data['name'])
         db.session.add(user)
-        session['user'] = dict(name=user.name, facebookID=user.facebookID)
+        session['user'] = dict(id=user.id, name=user.name, facebookID=user.facebookID)
     db.session.commit()
     return redirect(url_for('index'))
 
