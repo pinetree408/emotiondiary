@@ -1,8 +1,22 @@
 {% extends "layout.html" %}
 
 {% block body %}
+  <form action="/calendar/create" method="post">
+    <div class="radio">
+      <label>
+        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+        Good
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+        Bad
+      </label>
+    </div>
+    <button type="submit">submit</button>
+  </form>
 {% endblock %}
 
 {% block script %}
-  <script src="{{ url_for('static', filename='js/diary.js')}}"></script>
 {% endblock %}

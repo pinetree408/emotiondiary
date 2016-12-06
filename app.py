@@ -57,13 +57,22 @@ def index():
 @app.route("/calendar")
 def calendar():
     user = session.get('user')
-    calendar = Calendar.query.filter_by(user_id=user['id'], pub_date=datetime.today()).first()
+    today = datetime.combine(date.today(), time(0,0,0))
+    calendar = Calendar.query.filter_by(user_id=user['id'], pub_date=today).first()
     if not calendar:
         return redirect(url_for('calendar_create'))
-    return render_template('calendar/index.html')
+    return render_template('calendar/index.html', calendar_list=calendar)
 
-@app.route("/calendar/create")
+@app.route("/calendar/create", methods=['GET', 'POST'])
 def calendar_create():
+    user = session.get('user')
+    if request.method == 'POST':
+        emotion = request.form['optionsRadios']
+        today = datetime.combine(date.today(), time(0,0,0))
+        calendar = Calendar(content=str(emotion), pub_date=today, user_id=user['id'])
+        db.session.add(calendar)
+        db.session.commit()
+        return redirect(url_for('calendar'))
     return render_template('calendar/create.html')
 
 @app.route('/login')
