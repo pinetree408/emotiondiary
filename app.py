@@ -5,6 +5,7 @@ from os import path
 from datetime import datetime, date, time
 
 import sqlite3
+import json
 
 SECRET_KEY = 'development key'
 DEBUG = True
@@ -29,6 +30,14 @@ class Calendar(db.Model):
     pub_date = db.Column(db.DateTime)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def as_dict(self):
+        data = {
+            'id': self.id,
+            'created_at': self.pub_date.strftime('%Y-%m-%d'),
+            'text': self.content
+        }
+        return json.dumps(data)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -61,7 +70,9 @@ def calendar():
     calendar = Calendar.query.filter_by(user_id=user['id'], pub_date=today).first()
     if not calendar:
         return redirect(url_for('calendar_create'))
-    return render_template('calendar/index.html', calendar_list=calendar)
+    calendar_objects = Calendar.query.filter_by(user_id=user['id']).all()
+    calendar_list = list(map(lambda c_object: c_object.as_dict(), calendar_objects))
+    return render_template('calendar/index.html', calendar_list=calendar_list)
 
 @app.route("/calendar/create", methods=['GET', 'POST'])
 def calendar_create():

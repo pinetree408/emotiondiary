@@ -1,10 +1,13 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  {{ calendar_list }}
   <div id="calendar"></div>
 {% endblock %}
 
 {% block script %}
-  <script src="{{ url_for('static', filename='js/diary.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/calendar-javascript/diary.js')}}"></script>
+  <script type="text/javascript">
+    var items = {{ calendar_list|safe }};
+    window.onload = makeCalender(items);
+  </script>
 {% endblock %}

@@ -1,0 +1,3 @@
+[submodule "static/js/calendar-javascript"]
+	path = static/js/calendar-javascript
+	url = https://github.com/pinetree408/calendar-javascript.git
