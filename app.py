@@ -26,6 +26,7 @@ db = SQLAlchemy(app)
 
 class Calendar(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    emotion = db.Column(db.Integer)
     content = db.Column(db.Text)
     pub_date = db.Column(db.DateTime)
 
@@ -35,7 +36,8 @@ class Calendar(db.Model):
         data = {
             'id': self.id,
             'created_at': self.pub_date.strftime('%Y-%m-%d'),
-            'text': self.content
+            'text': self.content,
+            'emotion': self.emotion
         }
         return json.dumps(data)
 
@@ -79,8 +81,9 @@ def calendar_create():
     user = session.get('user')
     if request.method == 'POST':
         emotion = request.form['optionsRadios']
+        message = request.form['message']
         today = datetime.combine(date.today(), time(0,0,0))
-        calendar = Calendar(content=str(emotion), pub_date=today, user_id=user['id'])
+        calendar = Calendar(content=str(message), emotion=int(emotion), pub_date=today, user_id=user['id'])
         db.session.add(calendar)
         db.session.commit()
         return redirect(url_for('calendar'))
