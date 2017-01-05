@@ -89,6 +89,13 @@ def calendar_create():
         return redirect(url_for('calendar'))
     return render_template('calendar/create.html')
 
+@app.route("/calendar/emotion/<int:id>", methods=['GET', 'POST'])
+def calendar_emotion(id):
+    user = session.get('user')
+    calendar = Calendar.query.filter_by(id=id).first()
+    calendar_info = calendar.as_dict()
+    return render_template('calendar/detail.html', calendar_info=calendar_info)
+
 @app.route('/login')
 def login():
     return facebook.authorize(callback=url_for('facebook_authorized',
