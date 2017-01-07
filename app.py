@@ -96,6 +96,31 @@ def calendar_emotion(id):
     calendar_info = calendar.as_dict()
     return render_template('calendar/detail.html', calendar_info=calendar_info)
 
+@app.route("/tips")
+def tips():
+    tipFile = open('static/txt/tips.txt', 'r')
+    tipLines = tipFile.readlines()
+
+    result = []
+    for tipLine in tipLines:
+        splittedTip = tipLine.split('    ')
+        print splittedTip
+        if len(splittedTip) == 1:
+            continue
+        tipDict = {}
+        tipDict['number'] = splittedTip[0]
+        tipDict['locale'] = splittedTip[1]
+        tipDict['tip'] = splittedTip[2]
+        tipDict['cite'] = splittedTip[3]
+        tipDict['url'] = splittedTip[4]
+        tipDict['quotation'] = splittedTip[5]
+        tipDict['question'] = splittedTip[6]
+        tipDict['answer'] = splittedTip[7]
+        #tipDict['wrong'] = splittedTip[8]
+        result.append(tipDict)
+    return render_template('tips.html', tips=result)
+
+
 @app.route('/login')
 def login():
     return facebook.authorize(callback=url_for('facebook_authorized',
