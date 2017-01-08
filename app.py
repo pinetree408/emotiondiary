@@ -46,6 +46,17 @@ class User(db.Model):
     facebookID = db.Column(db.Unicode, unique=True)
     name = db.Column(db.Unicode)
 
+class Tip(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    number = db.Column(db.Integer) 
+    locale = db.Column(db.String(2))
+    tip = db.Column(db.Text)
+    cite = db.Column(db.Text)
+    url = db.Column(db.Text)
+    quotation = db.Column(db.Text)
+    question = db.Column(db.Text)
+    answer = db.Column(db.Text)
+
 db.create_all()
 
 facebook = oauth.remote_app('facebook',
@@ -57,6 +68,29 @@ facebook = oauth.remote_app('facebook',
     consumer_secret=FACEBOOK_APP_SECRET,
     request_token_params={'scope': 'email'}
 )
+
+def tip_builder():
+    tipFile = open('static/txt/tips.txt', 'r')
+    tipLines = tipFile.readlines()
+
+    for tipLine in tipLines:
+        splittedTip = tipLine.split('\t')
+        if len(splittedTip) == 1:
+            continue
+        print splittedTip
+        tip_object = Tip(number=splittedTip[0].strip(),
+                        locale=splittedTip[1].strip(),
+                        tip=splittedTip[2].strip().decode('utf-8'),
+                        cite=splittedTip[3].strip(),
+                        url=splittedTip[4].strip(),
+                        quotation=splittedTip[5].strip().decode('utf-8'),
+                        question=splittedTip[6].strip().decode('utf-8'),
+                        answer=splittedTip[7].strip().decode('utf-8'),
+                        )
+        db.session.add(tip_object)
+        db.session.commit()
+
+tip_builder()
 
 @app.route("/")
 def index():
@@ -98,27 +132,8 @@ def calendar_emotion(id):
 
 @app.route("/tips")
 def tips():
-    tipFile = open('static/txt/tips.txt', 'r')
-    tipLines = tipFile.readlines()
-
-    result = []
-    for tipLine in tipLines:
-        splittedTip = tipLine.split('    ')
-        print splittedTip
-        if len(splittedTip) == 1:
-            continue
-        tipDict = {}
-        tipDict['number'] = splittedTip[0]
-        tipDict['locale'] = splittedTip[1]
-        tipDict['tip'] = splittedTip[2]
-        tipDict['cite'] = splittedTip[3]
-        tipDict['url'] = splittedTip[4]
-        tipDict['quotation'] = splittedTip[5]
-        tipDict['question'] = splittedTip[6]
-        tipDict['answer'] = splittedTip[7]
-        #tipDict['wrong'] = splittedTip[8]
-        result.append(tipDict)
-    return render_template('tips.html', tips=result)
+    tip = Tip.query.filter_by(locale='KR',number=1).first()
+    return render_template('tips.html', tips=tip)
 
 
 @app.route('/login')
