@@ -56,6 +56,7 @@ class Tip(db.Model):
     quotation = db.Column(db.Text)
     question = db.Column(db.Text)
     answer = db.Column(db.Text)
+    choices = db.Column(db.PickleType)
 
 db.create_all()
 
@@ -77,7 +78,7 @@ def tip_builder():
         splittedTip = tipLine.split('\t')
         if len(splittedTip) == 1:
             continue
-        print splittedTip
+        choices = [item.strip().decode('utf-8') for item in splittedTip[7:]]
         tip_object = Tip(number=splittedTip[0].strip(),
                         locale=splittedTip[1].strip(),
                         tip=splittedTip[2].strip().decode('utf-8'),
@@ -86,6 +87,7 @@ def tip_builder():
                         quotation=splittedTip[5].strip().decode('utf-8'),
                         question=splittedTip[6].strip().decode('utf-8'),
                         answer=splittedTip[7].strip().decode('utf-8'),
+                        choices=choices
                         )
         db.session.add(tip_object)
         db.session.commit()
@@ -130,8 +132,10 @@ def calendar_emotion(id):
     calendar_info = calendar.as_dict()
     return render_template('calendar/detail.html', calendar_info=calendar_info)
 
-@app.route("/tips")
+@app.route("/tips", methods=['GET', 'POST'])
 def tips():
+    if request.method == 'POST':
+        return redirect(url_for('index'))
     tip = Tip.query.filter_by(locale='KR',number=1).first()
     return render_template('tips.html', tips=tip)
 
