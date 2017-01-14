@@ -6,6 +6,7 @@ from datetime import datetime, date, time
 
 import sqlite3
 import json
+import random
 
 SECRET_KEY = 'development key'
 DEBUG = True
@@ -78,7 +79,7 @@ def tip_builder():
         splittedTip = tipLine.split('\t')
         if len(splittedTip) == 1:
             continue
-        choices = [item.strip().decode('utf-8') for item in splittedTip[7:]]
+        choices = [item.strip().decode('utf-8') for item in splittedTip[7:] if len(item.strip()) != 0]
         tip_object = Tip(number=splittedTip[0].strip(),
                         locale=splittedTip[1].strip(),
                         tip=splittedTip[2].strip().decode('utf-8'),
@@ -135,9 +136,15 @@ def calendar_emotion(id):
 @app.route("/tips", methods=['GET', 'POST'])
 def tips():
     if request.method == 'POST':
-        return redirect(url_for('index'))
-    tip = Tip.query.filter_by(locale='KR',number=1).first()
-    return render_template('tips.html', tips=tip)
+        answer = request.form['optionsRadios']
+        number = request.form['tip_number']
+        locale = request.form['tip_locale']
+        tip = Tip.query.filter_by(number=int(number), locale=locale).first()
+	if tip.answer == answer:
+            return render_template('tip/correct.html')
+        return render_template('tip/wrong.html')
+    tip = Tip.query.filter_by(locale='KR',number=random.randint(1, 10)).first()
+    return render_template('tip/index.html', tips=tip)
 
 
 @app.route('/login')

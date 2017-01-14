@@ -5,12 +5,15 @@
   <p class="centerText">{{tips.tip}}</p>
   <p>{{tips.question}}</p>
   <form action="/tips" method="post">
+    <input type="hidden" value="{{tips.number}}" name="tip_number"/>
+    <input type="hidden" value="{{tips.locale}}" name="tip_locale"/>
     <div id="tips">
       {% for item in tips.choices %}
         <div class="radio">
           <label>
-            <input type="radio" name="optionsRadios" id="optionsRadios1" value={{loop.index}}>
-            {{item}}
+            <input type="radio" name="optionsRadios" id="optionsRadios{{loop.index}}" value="{{item}}">
+	      {{item}}
+            </input>
           </label>
         </div>
       {% endfor %}
