@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h2 class="centerText">{{ user_name }}님, 귀중한 시간 감사합니다!</h2>
+  <p>테스트 결과, {{ user_name }}님의 감정은 아래와 같이 표현될 수 있습니다.</p>
+  <CENTER><img src="http://webst-kaist.org/maps/ed_feedback_beta02-01.png"> <img src="http://webst-kaist.org/maps/ed_feedback_icon_b01.png"></CENTER>
+  <br> 당신은 가벼운 우울증이 의심됩니다. 우울한 기분은 현대인의 감기라 불릴 정도로 흔하지만, 우울한 기분이 2주 이상 지속되거나 지금보다 심해질 경우에는 병원을 찾아 정확한 진단을 받고 치료를 받는 것이 좋아요. 햇빛을 맞으며 산책, 하루 30분 정도의 운동, 규칙적인 수면과 식사, 평소 본인이 좋아하는 취미 활동들을 통해 우울한 기분이 개선 될 수 있어요!<br>
+
+  <p>우울증에 대해 좀 더 알아보고 싶으시다면, 궁금점을 풀어드릴 수 있는 팁들이 준비되어 있습니다. <strong>팁과 함께 간단한 문제도 풀어보세요.</strong></p>
+  <h2 class="centerText"><a href="{{ url_for('tips') }}">좀 더 알아보기</a></h2>
+{% endblock %}

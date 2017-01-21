@@ -59,6 +59,14 @@ class Tip(db.Model):
     answer = db.Column(db.Text)
     choices = db.Column(db.PickleType)
 
+class Test(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    category = db.Column(db.Text)
+    result = db.Column(db.Integer)
+    pub_date = db.Column(db.DateTime)
+
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
 db.create_all()
 
 facebook = oauth.remote_app('facebook',
@@ -145,6 +153,28 @@ def tips():
         return render_template('tip/wrong.html')
     tip = Tip.query.filter_by(locale='KR',number=random.randint(1, 10)).first()
     return render_template('tip/index.html', tips=tip)
+
+@app.route("/tests", methods=["GET", "POST"])
+def tests():
+    user = session.get('user')
+    if request.method == "POST":
+        score = []
+        for i in range(20):
+            scoreItem = eval("request.form.get('var" + str(i) + "')")
+            if scoreItem:
+                score.append(int(scoreItem))
+        scoresum = int(sum(score))
+        today = datetime.combine(date.today(), time(0,0,0))
+        calendar = Test(category="ces-d", result=scoresum, pub_date=today, user_id=user['id'])
+        db.session.add(calendar)
+        db.session.commit()
+        if scoresum < 10:
+            return render_template("tests/feedback1.html", user_name=user['name'])
+        elif 10 <= scoresum < 21: 
+            return render_template("tests/feedback2.html", user_name=user['name'])
+        else:
+            return render_template("tests/feedback3.html", user_name=user['name'])
+    return render_template("tests/ces-d.html")
 
 
 @app.route('/login')

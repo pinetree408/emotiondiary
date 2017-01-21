@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h2 class="centerText">{{ user_name }}님, 귀중한 시간 감사합니다!</h2>
+  <p>테스트 결과, {{ user_name }}님의 감정은 아래와 같이 표현될 수 있습니다.</p>
+  <CENTER><img src="http://webst-kaist.org/maps/ed_feedback_beta02-01.png"> <img src="http://webst-kaist.org/maps/ed_feedback_icon_b01.png"></CENTER>
+  <br>당신은 정상 범위 내의 점수가 나왔습니다. 하지만 우울증은 인생에 누구에게나 찾아올 수 있는 흔한 증상이기 때문에 이에 대한 관심을 가지는 것이 필요합니다. 평소에 햇빛을 맞으며 산책, 하루 30분 정도의 운동, 가족/친구들과의 대화, 취미활동의 유지를 통해 자신의 기분을 관리하는 것이 좋아요!<br>
+
+  <p>우울증에 대해 좀 더 알아보고 싶으시다면, 궁금점을 풀어드릴 수 있는 팁들이 준비되어 있습니다. <strong>팁과 함께 간단한 문제도 풀어보세요.</strong></p>
+  <h2 class="centerText"><a href="{{ url_for('tips') }}">좀 더 알아보기</a></h2>
+{% endblock %}

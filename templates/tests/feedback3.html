@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h2 class="centerText">{{ user_name }}님, 귀중한 시간 감사합니다!</h2>
+  <p>테스트 결과, {{ user_name }}님의 감정은 아래와 같이 표현될 수 있습니다.</p>
+  <CENTER><img src="http://webst-kaist.org/maps/ed_feedback_beta02-01.png"> <img src="http://webst-kaist.org/maps/ed_feedback_icon_b01.png"></CENTER>
+  <br> 우울한 증상이 심한 수준이에요. 믿을만한 가족, 친구들에게 도움을 요청하고, 절대로 술을 마셔서 힘든 것을 이겨내려고 하면 안돼요!  우울 증상이 심할 때는 혼자 힘으로 극복하기 어려울 수 있으니, 되도록 빨리 병원을 찾아 정확한 진단을 받고 치료를 받아야 해요!<br>
+  <p>우울증에 대해 좀 더 알아보고 싶으시다면, 궁금점을 풀어드릴 수 있는 팁들이 준비되어 있습니다. <strong>팁과 함께 간단한 문제도 풀어보세요.</strong></p>
+  <h2 class="centerText"><a href="{{ url_for('tips') }}">좀 더 알아보기</a></h2>
+{% endblock %}
