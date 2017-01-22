@@ -176,6 +176,9 @@ def tests():
             return render_template("tests/feedback3.html", user_name=user['name'])
     return render_template("tests/ces-d.html")
 
+@app.route("/game")
+def game():
+    return render_template("game/stroop.html")
 
 @app.route('/login')
 def login():

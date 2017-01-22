@@ -1,0 +1,49 @@
+#stroop_container{
+    position:auto;
+    clear: both;
+    width: 630px;
+    height: 21.0em;
+    margin-left: 0.0em;
+    margin-top: 1.0em;
+    border: 1px solid #000000;
+    background-color:#FFE4C4;
+}
+
+
+#stroop-locate{
+    position:absolute;
+
+    width: 16.0em;
+    height: 9.0em;
+    margin-left:13.0em;
+    margin-top:12.0em;
+    color: #FFD700;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+#buttons-container{
+    position: auto;
+    width: 6.0em;
+    height: 9.0em;
+    float:right;
+    right: 0.0em;
+    bottom: 0.0em; 
+    border:2px solid #8B4513;
+    background-color:#FFE4C4;
+    z-index: 5;
+}
+
+.numeric_form_field {
+    background-color:#C4E8D4;
+    border:1px solid black;
+    width: 100%;
+    text-align:right;
+}
+.numeric_form_field2 {
+    background-color:#C4E8D4;
+    border:1px solid black;
+    width:3em;
+    text-align:right;
+}
