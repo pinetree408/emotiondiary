@@ -138,7 +138,7 @@ def calendar_create():
 def calendar_emotion(id):
     user = session.get('user')
     calendar = Calendar.query.filter_by(id=id).first()
-    calendar_info = calendar.as_dict()
+    calendar_info = json.loads(calendar.as_dict())
     return render_template('calendar/detail.html', calendar_info=calendar_info)
 
 @app.route("/tips", methods=['GET', 'POST'])
