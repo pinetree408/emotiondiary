@@ -211,6 +211,5 @@ def facebook_authorized(resp):
 def get_facebook_oauth_token():
     return session.get('oauth_token')
 
-
 if __name__ == "__main__":
     app.run()
