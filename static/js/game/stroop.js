@@ -68,7 +68,8 @@ function startGame()
     slocatediv = document.getElementById('stroop-locate');
     var bboxdiv = document.getElementById('buttons-container');
 
-    var slocateem = slocatediv.clientHeight/9.0;    effBoxWidth = slocatediv.clientWidth - 2 * bboxdiv.clientWidth;
+    var slocateem = slocatediv.clientHeight/9.0;
+    effBoxWidth = slocatediv.clientWidth - 2 * bboxdiv.clientWidth;
     effBoxHt = containerdiv.clientHeight - 1.1 * slocateem;
 
     nextDisplay();
@@ -128,8 +129,9 @@ function nextDisplay()
     incrNumShown();
     rndColor();
     containerdiv.removeChild(slocatediv);
-    slocatediv.style.left = rnd(effBoxWidth) + 'px';
-    slocatediv.style.top = rnd(effBoxHt) + 'px';
+    slocatediv.style.marginLeft = rnd(effBoxWidth) + 'px';
+    slocatediv.style.marginTop = rnd(effBoxHt) + 'px';
+    console.log(slocatediv);
     rndWord();
     containerdiv.appendChild(slocatediv);
 }

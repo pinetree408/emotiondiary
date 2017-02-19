@@ -67,6 +67,13 @@ class Test(db.Model):
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
+class Game(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    result = db.Column(db.Integer)
+    pub_date = db.Column(db.DateTime)
+
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
 db.create_all()
 
 facebook = oauth.remote_app('facebook',
