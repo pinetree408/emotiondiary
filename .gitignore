@@ -16,3 +16,6 @@ node_modules/
 
 # for sqlite & flask
 *.db
+
+#for this project
+facebook_info.py

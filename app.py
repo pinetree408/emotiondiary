@@ -3,6 +3,7 @@ from flask_oauth import OAuth
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from datetime import datetime, date, time
+import facebook_info
 
 import sqlite3
 import json
@@ -10,8 +11,8 @@ import random
 
 SECRET_KEY = 'development key'
 DEBUG = True
-FACEBOOK_APP_ID = ''
-FACEBOOK_APP_SECRET = ''
+FACEBOOK_APP_ID = facebook_info.APP_ID
+FACEBOOK_APP_SECRET = facebook_info.APP_SECRET
 
 app = Flask(__name__)
 app.debug = DEBUG
