@@ -184,8 +184,16 @@ def tests():
             return render_template("tests/feedback3.html", user_name=user['name'])
     return render_template("tests/ces-d.html")
 
-@app.route("/game")
+@app.route("/game", methods=["GET", "POST"])
 def game():
+    user = session.get('user')
+    if request.method == 'POST':
+        result = request.form['result']
+        today = datetime.combine(date.today(), time(0,0,0))
+        game = Game(result=int(result), pub_date=today, user_id=user['id'])
+        db.session.add(game)
+        db.session.commit()
+        return redirect(url_for('game'))
     return render_template("game/stroop.html")
 
 @app.route('/login')
