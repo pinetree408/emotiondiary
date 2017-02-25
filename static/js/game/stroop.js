@@ -20,18 +20,8 @@ var flashOnTimeLimit = 1;  //clockticks
 var flashOffTimeLimit = 1; //clockticks
 var timeoutamt=1;
   
-var containerdiv;
-var slocatediv;
-
-function initialStartGame()
-{
+function initialStartGame() {
   setCurrentSpeed();
-
-  containerdiv = document.getElementById('stroop_container');
-    
-  var msgsdiv = document.createElement('div');
-  msgsdiv.id = 'user_messages';
-
   startGame();
 }
 
@@ -43,8 +33,8 @@ function startGame()
   flashOn();
   start_timer();
 
-  containerdiv = document.getElementById('stroop_container');
-  slocatediv = document.getElementById('stroop-locate');
+  var containerdiv = document.getElementById('stroop_container');
+  var slocatediv = document.getElementById('stroop-locate');
   var bboxdiv = document.getElementById('buttons-container');
 
   var slocateem = slocatediv.clientHeight/9.0;
@@ -60,6 +50,7 @@ function initialize()
   numShown = 0;
   numTried = 0;
   numCorrect = 0;
+
   setNumTried();
   setCorrect();
 }
@@ -75,8 +66,7 @@ function rnd(n) {
   return Math.floor(Math.random() * n);
 }
 
-function rndColor()
-{
+function rndColor() {
   var nn = rnd(4);
   var slocatediv = document.getElementById('stroop-locate');
 
@@ -98,20 +88,20 @@ function doNextDisplay()
   nextDisplay();
 }
 
-function nextDisplay()
-{
-  incrNumShown();
-  rndColor();
-  containerdiv.removeChild(slocatediv);
+function nextDisplay() {
+  increaseNumShown();
+
+  var slocatediv = document.getElementById('stroop-locate');
   slocatediv.style.marginLeft = rnd(effBoxWidth) + 'px';
   slocatediv.style.marginTop = rnd(effBoxHt) + 'px';
-  console.log(slocatediv);
+
+  rndColor();
   rndWord();
-  containerdiv.appendChild(slocatediv);
 }
 
 function rndWord()
 {
+  var slocatediv = document.getElementById('stroop-locate');
   var nn = rnd(4);
   while (nn == curColor){
       nn = rnd(4);
@@ -127,8 +117,8 @@ function rndWord()
   }
 }
 
-function hideWord()
-{
+function hideWord() {
+  var slocatediv = document.getElementById('stroop-locate');
   slocatediv.innerHTML = '';
 }
 
@@ -144,8 +134,7 @@ function respond(response)
   nextDisplay();
 }
 
-function incrNumShown()
-{
+function increaseNumShown() {
   numShown++;
   setNumShown();
 }
@@ -161,13 +150,13 @@ function incrNumTried()
   numTried++;
   setNumTried();
 }
-function setNumTried()
-{
+
+function setNumTried() {
   var numtried_div = document.getElementById('numtried_div');
   numtried_div.innerHTML = numTried;
 }
-function setCorrect()
-{
+
+function setCorrect() {
   var numcorrectdiv = document.getElementById('numcorrect_div');
   numcorrectdiv.innerHTML = numCorrect;
 }
@@ -176,7 +165,6 @@ function setCorrect()
 
 function doFlash() {
   if (flashTime == 0) {
-    var lastFlashMode = flashMode;
     flashMode = 1 - flashMode;
     if (flashMode == 0){
        hideWord();
@@ -190,8 +178,7 @@ function doFlash() {
   }
 }
 
-function  flashOn()
-{
+function  flashOn() {
   flashMode = 1;
   flashTime = flashOnTimeLimit;
 }
@@ -224,7 +211,6 @@ function setCurrentSpeed() {
 
 /* =========== Elapsed time code ===========  */
 
-var time_display_type = 0;  /* type 0 = div-based; type 1 = form-based (deprecated) */
 var timeout_id = 0;
 var start_time  = 0;
 var elapsed_time = 0;
@@ -235,12 +221,12 @@ var total_offset_secs = 0;
 function update_timer() {
   if (timeout_id) {
     clearTimeout(timeout_id);
-    timeout_id = 0;
   }
 
   if (!start_time) {
     start_time = new Date();
   }
+
   var cur_time = new Date();
   elapsed_time = cur_time.getTime() - start_time.getTime() + total_offset_secs * 1000;
 
@@ -252,31 +238,22 @@ function update_timer() {
       selapsed_secs = "0" + elapsed_secs;
   }
 
-  if (time_display_type == 1){
-    document.topform.timeDisplay.value = "" + elapsed_mins + ":" + selapsed_secs;
-  } else {
-    var timediv = document.getElementById('elaps_time_div');
-    timediv.innerHTML =  "" + elapsed_mins + ":" + selapsed_secs;
-  }
+  var timediv = document.getElementById('elaps_time_div');
+  timediv.innerHTML =  "" + elapsed_mins + ":" + selapsed_secs;
 
   if (flashOnTimer) {
-    // to be implemented by pages which set flashOnTimer = true:
     doFlash();
   }
 
-  timeout_id = setTimeout("update_timer()", timeoutamt);
+  timeout_id = setTimeout(update_timer, timeoutamt);
 }
 
 function start_timer() {
   if (!start_time) {
-    start_time   = new Date();
-    if (time_display_type == 1) {
-      document.topform.timeDisplay.value = "00:00";
-    } else {
-      var timediv = document.getElementById('elaps_time_div');
-      timediv.innerHTML = "00:00";
-    }
-    timeout_id  = setTimeout("update_timer()", 1000);
+    start_time = new Date();
+    var timediv = document.getElementById('elaps_time_div');
+    timediv.innerHTML = "00:00";
+    timeout_id = setTimeout(update_timer, 1000);
   }
 }
 
@@ -292,15 +269,12 @@ function restart_timer(secs) {
   }
   var theTime = start_mins.toString()+ ":" + sstart_secs;
 
-  if (time_display_type == 1){
-    document.topform.timeDisplay.value = theTime;
-  } else {
-    var timediv = document.getElementById('elaps_time_div');
-    timediv.innerHTML = theTime;
-  }
+  var timediv = document.getElementById('elaps_time_div');
+  timediv.innerHTML = theTime;
+
   stop_timer();
   start_time   = new Date();
-  timeout_id  = setTimeout("update_timer()", 1000);
+  timeout_id  = setTimeout(update_timer, 1000);
 }
 
 function stop_timer() {
@@ -313,12 +287,9 @@ function stop_timer() {
 
 function reset_timer() {
   start_time = null;
-  if (time_display_type == 1){
-    document.topform.timeDisplay.value = "00:00";
-  } else {
-    var timediv = document.getElementById('elaps_time_div');
-    timediv.innerHTML = "00:00";
-  }
+
+  var timediv = document.getElementById('elaps_time_div');
+  timediv.innerHTML = "00:00";
 }
 
 function showInstructions() {
