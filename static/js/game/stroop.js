@@ -1,5 +1,3 @@
-var playing = false; 
-       
 var effBoxWidth = 360;  // = 480 -120 (actual - word size)
 var effBoxHt = 340; // = 380 - 40 (actual - word height)
     
@@ -9,10 +7,6 @@ var numShown;
 var numTried;
 var numCorrect;
 
-var correctItemFactor = 1;
-var allCorrectBonus = 0; 
-var totalPossibleScore;
-
 var flashOnTimer = true;
 var flashMode = 1;  //0 = off; 1 = on
 var flashTime;
@@ -20,14 +14,8 @@ var flashOnTimeLimit = 1;  //clockticks
 var flashOffTimeLimit = 1; //clockticks
 var timeoutamt=1;
   
-function initialStartGame() {
+function startGame() {
   setCurrentSpeed();
-  startGame();
-}
-
-
-function startGame()
-{
   reset_timer();
   initialize();
   flashOn();
@@ -44,8 +32,7 @@ function startGame()
   nextDisplay();
 }
 
-function initialize()
-{
+function initialize() {
   curColor = 0;
   numShown = 0;
   numTried = 0;
@@ -55,19 +42,18 @@ function initialize()
   setCorrect();
 }
 
-function stopGame()
-{
+function stopGame() {
   stop_timer();
   hideWord();
 }
 
-// random integer 0 <= X < n:
-function rnd(n) {
+function rndInt(n) {
+  // range of return 0 <= x < n
   return Math.floor(Math.random() * n);
 }
 
 function rndColor() {
-  var nn = rnd(4);
+  var nn = rndInt(4);
   var slocatediv = document.getElementById('stroop-locate');
 
   // 0 = red; 1 = green; 2 = blue; 3 = yellow:
@@ -83,28 +69,22 @@ function rndColor() {
   }
 }
 
-function doNextDisplay()
-{
-  nextDisplay();
-}
-
 function nextDisplay() {
   increaseNumShown();
 
   var slocatediv = document.getElementById('stroop-locate');
-  slocatediv.style.marginLeft = rnd(effBoxWidth) + 'px';
-  slocatediv.style.marginTop = rnd(effBoxHt) + 'px';
+  slocatediv.style.marginLeft = rndInt(effBoxWidth) + 'px';
+  slocatediv.style.marginTop = rndInt(effBoxHt) + 'px';
 
   rndColor();
   rndWord();
 }
 
-function rndWord()
-{
+function rndWord() {
   var slocatediv = document.getElementById('stroop-locate');
-  var nn = rnd(4);
+  var nn = rndInt(4);
   while (nn == curColor){
-      nn = rnd(4);
+      nn = rndInt(4);
   }
   if (nn == 0){
      slocatediv.innerHTML = '빨강';
@@ -122,8 +102,7 @@ function hideWord() {
   slocatediv.innerHTML = '';
 }
 
-function respond(response)
-{
+function respond(response) {
   var respNum = parseInt(response);
   incrNumTried();
   if (respNum == curColor){
@@ -139,14 +118,12 @@ function increaseNumShown() {
   setNumShown();
 }
 
-function setNumShown()
-{
+function setNumShown() {
   var numshown_div = document.getElementById('numshown_div');
   numshown_div.innerHTML = numShown;
 }
 
-function incrNumTried()
-{
+function incrNumTried() {
   numTried++;
   setNumTried();
 }
@@ -183,16 +160,10 @@ function  flashOn() {
   flashTime = flashOnTimeLimit;
 }
 
-function reset_timer()
-{
+function reset_timer() {
   start_time = null;
   var timediv = document.getElementById('elaps_time_div');
   timediv.innerHTML = "00:00";
-}
-
-function changeSpeed()
-{
-  setCurrentSpeed();
 }
 
 function setCurrentSpeed() {

@@ -14,11 +14,11 @@
 </div>
 
 <div id="start_stop" >
-  Speed: <select id="taskspeed" onchange="changeSpeed();">
+  Speed: <select id="taskspeed" onchange="setCurrentSpeed();">
   <option value="Slow">느리게</option> <option value="Medium">보통 속도로</option>
   <option value="Fast">빠르게</option><option value="Fastest">매우 빠르게</option></select>
   &nbsp; &nbsp; &nbsp; &nbsp;
-  <input type="button" name="start" value="Start"  class="submit_reset_btn" onclick="initialStartGame();return false;" style="border:1px solid black;">
+  <input type="button" name="start" value="Start"  class="submit_reset_btn" onclick="startGame();return false;" style="border:1px solid black;">
   <input type="button" name="stop" value="Stop"  class="submit_reset_btn" onclick="stopGame();return false;" style="border:1px solid black;">
 </div>
 
@@ -75,6 +75,7 @@
     </table>
   </div>
 </div>
+
 {% endblock %}
 
 {% block script %}
