@@ -1,5 +1,23 @@
-.submit_reset_btn {
+.stroop_btn {
   border:1px solid black;
+}
+
+.stroop-result table {
+  width: 100%;
+  border: 0px;
+}
+
+.stroop-result table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.stroop-result table .title {
+  width: 20%;
+}
+
+.stroop-result table .result {
+  widht: 5%;
 }
 
 #stroop_container {
@@ -40,17 +58,4 @@
 .numeric_form_field {
   background-color:#C4E8D4;
   border:1px solid black;
-  width: 100%;
-  text-align:right;
-}
-
-.numeric_form_field2 {
-  background-color:#C4E8D4;
-  border:1px solid black;
-  width:3em;
-  text-align:right;
-}
-
-.answerBtn {
-  border: 1px solid black;
 }

@@ -24,27 +24,27 @@
     Speed: <select id="taskspeed" onchange="setCurrentSpeed();">
     <option value="Slow">느리게</option> <option value="Medium">보통 속도로</option>
     <option value="Fast">빠르게</option><option value="Fastest">매우 빠르게</option></select>
-    <input type="button" name="start" value="Start"  class="submit_reset_btn" onclick="startGame();"/>
-    <input type="button" name="stop" value="Stop"  class="submit_reset_btn" onclick="stopGame();"/>
+    <input type="button" name="start" value="Start"  class="stroop_btn" onclick="startGame();"/>
+    <input type="button" name="stop" value="Stop"  class="stroop_btn" onclick="stopGame();"/>
   </div>
 
   <div class="stroop-result">
-    <table width="100%" style="border:0px solid black;">
+    <table>
       <tr>
-        <td width="18%" align="right">Elapsed time:</td>
-        <td align="left" width="7%">
-          <div id="elaps_time_div" class="numeric_form_field2"></div>
+        <td class="title">Elapsed time:</td>
+        <td class="result">
+          <div id="elaps_time_div" class="numeric_form_field"></div>
         </td>
-        <td width="20%" align="right">Number Shown:</td>
-        <td align="left">
+        <td class="title">Number Shown:</td>
+        <td class="result">
           <div id="numshown_div" class="numeric_form_field"></div>
         </td>
-        <td width="20%" align="right">Number Tried:</td>
-        <td align="left">
+        <td class="title">Number Tried:</td>
+        <td class="result">
           <div id="numtried_div" class="numeric_form_field"></div>
         </td>
-        <td width="20%" align="right">Number Correct:</td>
-        <td align="left">
+        <td class="title">Number Correct:</td>
+        <td class="result">
           <div id="numcorrect_div" class="numeric_form_field"></div>
         </td>
       </tr>
@@ -60,22 +60,22 @@
         </tr>
         <tr>
           <td align="center">
-            <input type="submit" name="answerBtn" value="빨강" onclick="respond(0);" class="answerBtn"/>
+            <input type="submit" name="answerBtn" value="빨강" onclick="respond(0);" class="stroop_btn"/>
           </td>
         </tr>
         <tr>
           <td align="center">
-            <input type="submit" name="answerBtn" value="초록" onclick="respond(1);" class="answerBtn"/>
+            <input type="submit" name="answerBtn" value="초록" onclick="respond(1);" class="stroop_btn"/>
           </td>
         </tr>
         <tr>
           <td align="center">
-            <input type="submit" name="answerBtn" value="파랑" onclick="respond(2);" class="answerBtn"/>
+            <input type="submit" name="answerBtn" value="파랑" onclick="respond(2);" class="stroop_btn"/>
           </td>
         </tr>
         <tr>
           <td align="center">
-            <input type="submit" name="answerBtn" value="노랑" onclick="respond(3);" class="answerBtn"/>
+            <input type="submit" name="answerBtn" value="노랑" onclick="respond(3);" class="stroop_btn"/>
           </td>
         </tr>
       </table>

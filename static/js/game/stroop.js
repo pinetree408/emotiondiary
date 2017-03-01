@@ -1,5 +1,5 @@
-var effBoxWidth = 360;  // = 480 -120 (actual - word size)
-var effBoxHt = 340; // = 380 - 40 (actual - word height)
+var effBoxWidth;
+var effBoxHt;
     
 // 0 = red; 1 = green; 2 = blue; 3 = yellow:
 var curColor;
