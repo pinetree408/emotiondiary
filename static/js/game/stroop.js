@@ -21,7 +21,7 @@ function startGame() {
   flashOn();
   start_timer();
 
-  var containerdiv = document.getElementById('stroop_container');
+  var containerdiv = document.getElementById('stroop-container');
   var slocatediv = document.getElementById('stroop-locate');
   var bboxdiv = document.getElementById('buttons-container');
 
@@ -119,7 +119,7 @@ function increaseNumShown() {
 }
 
 function setNumShown() {
-  var numshown_div = document.getElementById('numshown_div');
+  var numshown_div = document.getElementById('num-shown');
   numshown_div.innerHTML = numShown;
 }
 
@@ -129,12 +129,12 @@ function incrNumTried() {
 }
 
 function setNumTried() {
-  var numtried_div = document.getElementById('numtried_div');
+  var numtried_div = document.getElementById('num-tried');
   numtried_div.innerHTML = numTried;
 }
 
 function setCorrect() {
-  var numcorrectdiv = document.getElementById('numcorrect_div');
+  var numcorrectdiv = document.getElementById('num-correct');
   numcorrectdiv.innerHTML = numCorrect;
 }
 
@@ -162,12 +162,12 @@ function  flashOn() {
 
 function reset_timer() {
   start_time = null;
-  var timediv = document.getElementById('elaps_time_div');
+  var timediv = document.getElementById('elaps-time');
   timediv.innerHTML = "00:00";
 }
 
 function setCurrentSpeed() {
-  var speedselect = document.getElementById('taskspeed');
+  var speedselect = document.getElementById('task-speed');
   taskspeed = speedselect.value;
   if (taskspeed=='Slow'){
     timeoutamt=600;
@@ -209,7 +209,7 @@ function update_timer() {
       selapsed_secs = "0" + elapsed_secs;
   }
 
-  var timediv = document.getElementById('elaps_time_div');
+  var timediv = document.getElementById('elaps-time');
   timediv.innerHTML =  "" + elapsed_mins + ":" + selapsed_secs;
 
   if (flashOnTimer) {
@@ -222,7 +222,7 @@ function update_timer() {
 function start_timer() {
   if (!start_time) {
     start_time = new Date();
-    var timediv = document.getElementById('elaps_time_div');
+    var timediv = document.getElementById('elaps-time');
     timediv.innerHTML = "00:00";
     timeout_id = setTimeout(update_timer, 1000);
   }
@@ -240,7 +240,7 @@ function restart_timer(secs) {
   }
   var theTime = start_mins.toString()+ ":" + sstart_secs;
 
-  var timediv = document.getElementById('elaps_time_div');
+  var timediv = document.getElementById('elaps-time');
   timediv.innerHTML = theTime;
 
   stop_timer();
@@ -259,7 +259,7 @@ function stop_timer() {
 function reset_timer() {
   start_time = null;
 
-  var timediv = document.getElementById('elaps_time_div');
+  var timediv = document.getElementById('elaps-time');
   timediv.innerHTML = "00:00";
 }
 
