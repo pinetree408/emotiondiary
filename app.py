@@ -133,10 +133,11 @@ def calendar():
 def calendar_create():
     user = session.get('user')
     if request.method == 'POST':
-        emotion = request.form['optionsRadios']
-        message = request.form['message']
+        json_data = request.get_json()
+        emotion = int(json_data['emotion'])
+        message = json_data['message']
         today = datetime.combine(date.today(), time(0,0,0))
-        calendar = Calendar(content=str(message), emotion=int(emotion), pub_date=today, user_id=user['id'])
+        calendar = Calendar(content=message, emotion=int(emotion), pub_date=today, user_id=user['id'])
         db.session.add(calendar)
         db.session.commit()
         return redirect(url_for('calendar'))
