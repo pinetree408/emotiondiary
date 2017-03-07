@@ -141,7 +141,7 @@ def calendar_create():
         db.session.add(calendar)
         db.session.commit()
         return json.dumps({'success':True, 'redirect': '/calendar'}), 200, {'ContentType':'application/json'}
-    return render_template('calendar/create.html')
+    return render_template('calendar/create/index.html')
 
 @app.route("/calendar/emotion/<int:id>", methods=['GET', 'POST'])
 def calendar_emotion(id):

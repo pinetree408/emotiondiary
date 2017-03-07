@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block style %}
+{% endblock %}
+
+{% block body %}
+<div id="emotion-container">
+  {% include "calendar/create/emotion.html" %}
+</div>
+<div id="message-container">
+  {% include "calendar/create/message.html" %}
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script>
+  $("#message-container").hide();
+
+  $("#next").on("click", function() {
+    $("#emotion-container").hide();
+    $("#message-container").show();
+  });
+  $("#prev").on("click", function() {
+    $("#emotion-container").show();
+    $("#message-container").hide();
+  });
+  $("#submit").on("click", function() {
+    var emotion = $("input[name=optionsRadios]").val();
+    var message = $("textarea[name=message]").val();
+    $.ajax({
+      type: "POST",
+      url: "/calendar/create",
+      data: JSON.stringify({
+        emotion: emotion,
+        message: message
+      }),
+      dataType : "json",
+      contentType: "application/json; charset=utf-8",
+      success: function (response) {
+        if (response.success) {
+          window.location = response.redirect;
+        }
+      }
+    });
+  });
+</script>
+{% endblock %}
