@@ -5,20 +5,7 @@
 {% endblock %}
 
 {% block body %}
-<h2 class="centerText">스트룹 검사 (Stroop Task)</h2>
-<div>
-  <p>
-    스트룹 검사는 사람들이 단어를 매우 빨리, 거의 의식하지 않고 읽어내는 경향에 의한 검사입니다.
-    대개 사람들은 보여지는 색깔의 이름을 붙이는 것보다 단어를 읽는 것을 더 쉽게 해내곤 합니다.
-    '스트룹 검사'는, 1930년대에 이 효과를 발견한 심리학자의 이름을 따 만들어진 것입니다.
-    스트룹은 색깔의 이름(빨강, 초록, 파랑, 노랑)과 함께 색깔을 표시하되, 이름과 <em>다른</em> 색을 표시하여 테스트를 함으로써 이러한 경향을 밝혀내었습니다(예를 들어, <font color="red">파랑</font>).
-    우리가 단어를 무의식중에 읽어내는 경향으로 인해, 여러분들은 표시된 이름 대신 <em> 실제 색깔</em> 의 이름을 말하는 것에 좀 더 집중하셔야 할 것입니다.
-    가능한한 정확하고 빠르게 응답해보세요.
-  </p>
-  <p>
-    <input type="button" value="매뉴얼" onclick="showInstructions();">버튼을 눌러 테스트를 하는 방법을 확인하세요.
-  </p>
-</div>
+{% include "game/descriptions.html" %}
 <div>
   <div class="stroop-settings" >
     Speed:

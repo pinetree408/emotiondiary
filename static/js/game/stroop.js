@@ -264,7 +264,7 @@ function reset_timer() {
 }
 
 function showInstructions() {
-  var ipath= "http://webst-kaist.org/maps/stroop_mnl.html";
+  var ipath= "/game/instruction";
   var entry_win=window.open(ipath,'Stroop_Task_Instructions','height=400,width=650');
   return false;
 }

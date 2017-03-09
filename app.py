@@ -197,6 +197,10 @@ def game():
         return redirect(url_for('game'))
     return render_template("game/stroop.html")
 
+@app.route("/game/instruction")
+def game_instruction():
+    return render_template("game/instructions.html")
+
 @app.route('/login')
 def login():
     return facebook.authorize(callback=url_for('facebook_authorized',
