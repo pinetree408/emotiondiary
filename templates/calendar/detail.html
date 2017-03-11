@@ -2,15 +2,15 @@
 
 {% block body %}
   {% if calendar_info.emotion == 1%}
-    <img src="{{ url_for('static', filename='img/emotion-1.png')}}">
+    <img src="{{ url_for('static', filename='img/calendar/emotion-1.png')}}">
   {% elif calendar_info.emotion == 2%}
-    <img src="{{ url_for('static', filename='img/emotion-2.png')}}">
+    <img src="{{ url_for('static', filename='img/calendar/emotion-2.png')}}">
   {% elif calendar_info.emotion == 3%}
-    <img src="{{ url_for('static', filename='img/emotion0.png')}}">
+    <img src="{{ url_for('static', filename='img/calendar/emotion0.png')}}">
   {% elif calendar_info.emotion == 4%}
-    <img src="{{ url_for('static', filename='img/emotion1.png')}}">
+    <img src="{{ url_for('static', filename='img/calendar/emotion1.png')}}">
   {% else %}
-    <img src="{{ url_for('static', filename='img/emotion2.png')}}">
+    <img src="{{ url_for('static', filename='img/calendar/emotion2.png')}}">
   {% endif %}
   <div>{{ calendar_info.text }}</div>
 {% endblock %}
