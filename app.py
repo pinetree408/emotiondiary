@@ -141,7 +141,14 @@ def calendar_create():
         db.session.add(calendar)
         db.session.commit()
         return json.dumps({'success':True, 'redirect': '/calendar'}), 200, {'ContentType':'application/json'}
-    return render_template('calendar/create/index.html')
+    emotion_contents = [
+        ("Very Bad", "img/calendar/emotion-2.png"),
+        ("Bad", "img/calendar/emotion-1.png"),
+        ("So So", "img/calendar/emotion0.png"),
+        ("Good", "img/calendar/emotion1.png"),
+        ("Very Good", "img/calendar/emotion2.png")
+    ]
+    return render_template('calendar/create/index.html', emotion_contents=emotion_contents)
 
 @app.route("/calendar/emotion/<int:id>", methods=['GET', 'POST'])
 def calendar_emotion(id):

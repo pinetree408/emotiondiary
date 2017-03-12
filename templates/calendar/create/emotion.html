@@ -1,43 +1,20 @@
 <div>
-  How about your overall feelings today? 
+  <h3>How about your overall feelings today?</h3>
+</div>
+<div class="row">
+  <div class="col-md-1 col-lg-1"></div>
+  {% for emotion, path in emotion_contents %}
+    <div class="col-md-2 col-lg-2">
+      <div>
+	<img src="{{ url_for('static', filename=path)}}">
+      </div>
+      <div>
+	<input type="radio" name="optionsRadios" id="optionsRadios1" value="{{loop.index}}">
+      </div>
+      <div>{{ emotion }}</div>
+    </div>
+  {% endfor %}
 </div>
 <div>
-    <div id="emotion">
-      <div class="radio">
-        <img src="{{ url_for('static', filename='img/calendar/emotion-1.png')}}">
-        <label>
-          <input type="radio" name="optionsRadios" id="optionsRadios1" value="1">
-          Very Bad
-        </label>
-      </div>
-      <div class="radio">
-        <img src="{{ url_for('static', filename='img/calendar/emotion-2.png')}}">
-        <label>
-          <input type="radio" name="optionsRadios" id="optionsRadios2" value="2">
-          Bad
-        </label>
-      </div>
-      <div class="radio">
-        <img src="{{ url_for('static', filename='img/calendar/emotion0.png')}}">
-        <label>
-          <input type="radio" name="optionsRadios" id="optionsRadios3" value="3">
-          So So
-        </label>
-      </div>
-      <div class="radio">
-        <img src="{{ url_for('static', filename='img/calendar/emotion1.png')}}">
-        <label>
-          <input type="radio" name="optionsRadios" id="optionsRadios4" value="4">
-          Good
-        </label>
-      </div>
-      <div class="radio">
-        <img src="{{ url_for('static', filename='img/calendar/emotion2.png')}}">
-        <label>
-          <input type="radio" name="optionsRadios" id="optionsRadios5" value="5">
-          Very Good
-        </label>
-      </div>
-    </div>
-    <button id="next">next</button>
+  <button id="next">next</button>
 </div>

@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-<div id="emotion-container">
+<div id="emotion-container" class="container-fluid">
   {% include "calendar/create/emotion.html" %}
 </div>
 <div id="message-container">
@@ -13,7 +13,6 @@
 {% endblock %}
 
 {% block script %}
-<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <script>
   $("#message-container").hide();
 
