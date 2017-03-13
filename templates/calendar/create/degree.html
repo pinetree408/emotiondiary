@@ -1,20 +1,20 @@
 <div>
-  <h3>How about your overall feelings today?</h3>
+  <h3>How strongly did you feel the feeling you indicated earlier?</h3>
 </div>
 <div class="row">
   <div class="col-md-1 col-lg-1"></div>
-  {% for emotion, path in emotion_contents %}
+  {% for degree, path in emotion_degrees %}
     <div class="col-md-2 col-lg-2">
       <div>
 	<img src="{{ url_for('static', filename=path)}}">
       </div>
       <div>
-	<input type="radio" name="emotion" value="{{loop.index}}">
+        <input type="radio" name="degree" value="{{loop.index}}">
       </div>
-      <div>{{ emotion }}</div>
+      <div>{{ degree }}</div>
     </div>
   {% endfor %}
 </div>
 <div>
-  <button id="degree">next</button>
+  <button id="message">next</button>
 </div>

@@ -7,6 +7,9 @@
 <div id="emotion-container" class="container-fluid">
   {% include "calendar/create/emotion.html" %}
 </div>
+<div id="degree-container" class="container-fluid">
+  {% include "calendar/create/degree.html" %}
+</div>
 <div id="message-container">
   {% include "calendar/create/message.html" %}
 </div>
@@ -14,25 +17,32 @@
 
 {% block script %}
 <script>
+  $("#degree-container").hide();
   $("#message-container").hide();
 
-  $("#next").on("click", function() {
+  $("#degree").on("click", function() {
     $("#emotion-container").hide();
+    $("#degree-container").show();
+  });
+  $("#message").on("click", function() {
+    $("#degree-container").hide();
     $("#message-container").show();
   });
-  $("#prev").on("click", function() {
+  $("#emotion").on("click", function() {
     $("#emotion-container").show();
     $("#message-container").hide();
   });
 
   $("#submit").on("click", function() {
-    var emotion = $("input[name=optionsRadios]").val();
+    var emotion = $("input[name=emotion]").val();
+    var degree = $("input[name=degree]").val();
     var message = $("textarea[name=message]").val();
     $.ajax({
       type: "POST",
       url: "/calendar/create",
       data: JSON.stringify({
         emotion: emotion,
+        degree: degree,
         message: message
       }),
       dataType : "json",

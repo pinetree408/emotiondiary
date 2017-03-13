@@ -29,6 +29,7 @@ db = SQLAlchemy(app)
 class Calendar(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     emotion = db.Column(db.Integer)
+    degree = db.Column(db.Integer)
     content = db.Column(db.Text)
     pub_date = db.Column(db.DateTime)
 
@@ -39,7 +40,8 @@ class Calendar(db.Model):
             'id': self.id,
             'created_at': self.pub_date.strftime('%Y-%m-%d'),
             'text': self.content,
-            'emotion': self.emotion
+            'emotion': self.emotion,
+            'degree': self.degree
         }
         return json.dumps(data)
 
@@ -135,9 +137,10 @@ def calendar_create():
     if request.method == 'POST':
         json_data = request.get_json()
         emotion = int(json_data['emotion'])
+        degree = int(json_data['degree'])
         message = json_data['message']
         today = datetime.combine(date.today(), time(0,0,0))
-        calendar = Calendar(content=message, emotion=int(emotion), pub_date=today, user_id=user['id'])
+        calendar = Calendar(content=message, emotion=emotion, degree=degree, pub_date=today, user_id=user['id'])
         db.session.add(calendar)
         db.session.commit()
         return json.dumps({'success':True, 'redirect': '/calendar'}), 200, {'ContentType':'application/json'}
@@ -148,7 +151,17 @@ def calendar_create():
         ("Good", "img/calendar/emotion1.png"),
         ("Very Good", "img/calendar/emotion2.png")
     ]
-    return render_template('calendar/create/index.html', emotion_contents=emotion_contents)
+    emotion_degrees = [
+        ("Very Weakly", "img/calendar/degree1.png"),
+        ("Weakly", "img/calendar/degree2.png"),
+        ("So So", "img/calendar/degree3.png"),
+        ("Strong", "img/calendar/degree4.png"),
+        ("Very Strong", "img/calendar/degree5.png")
+    ]
+    return render_template('calendar/create/index.html',
+        emotion_contents=emotion_contents,
+        emotion_degrees=emotion_degrees
+    )
 
 @app.route("/calendar/emotion/<int:id>", methods=['GET', 'POST'])
 def calendar_emotion(id):
