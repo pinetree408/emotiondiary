@@ -20,7 +20,7 @@ app.secret_key = SECRET_KEY
 oauth = OAuth()
 
 BASE_DIRECTORY = path.abspath(path.dirname(__file__))
-dbURL = '{0}{1}'.format('sqlite:///', path.join(BASE_DIRECTORY, 'app.db'))
+dbURL = '{0}{1}'.format('sqlite:///', path.join(BASE_DIRECTORY, 'emotiondiary.db'))
 app.config['SQLALCHEMY_DATABASE_URI'] = dbURL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
