@@ -2,9 +2,14 @@
   <h3>How about your detail feelings today?</h3>
 </div>
 <div>
-  <div>
-    <textarea class="form-control" name="message" rows="3"></textarea>
-  </div>
+  {% for title in message %}
+    <div>
+      <div>
+        <h5>{{title}}</h5>
+      </div>
+      <textarea class="form-control" name="message{{loop.index}}" rows="3"></textarea>
+    </div>
+  {% endfor %}
 </div>
 <div>
   <button id="emotion">prev</button>

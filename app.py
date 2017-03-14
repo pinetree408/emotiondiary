@@ -1,6 +1,7 @@
 from flask import Flask, g, render_template, redirect, url_for, session, request
 from flask_oauth import OAuth
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.ext import mutable
 from os import path
 from datetime import datetime, date, time
 import facebook_info
@@ -26,11 +27,29 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 db = SQLAlchemy(app)
 
+class JsonEncodedDict(db.TypeDecorator):
+    """Enables JSON storage by encoding and decoding on the fly."""
+    impl = db.Text
+
+    def process_bind_param(self, value, dialect):
+        if value is None:
+            return '{}'
+        else:
+            return json.dumps(value)
+
+    def process_result_value(self, value, dialect):
+        if value is None:
+            return {}
+        else:
+            return json.loads(value)
+
+mutable.MutableDict.associate_with(JsonEncodedDict)
+
 class Calendar(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     emotion = db.Column(db.Integer)
     degree = db.Column(db.Integer)
-    content = db.Column(db.Text)
+    content = db.Column(JsonEncodedDict)
     pub_date = db.Column(db.DateTime)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -158,9 +177,15 @@ def calendar_create():
         ("Strong", "img/calendar/degree4.png"),
         ("Very Strong", "img/calendar/degree5.png")
     ]
+    message = [
+        "Write down today's or past major events and events that have had the greatest impact on your mood today.",
+        "Please feel free to write your feelings about the above events, work or thoughts.",
+        "You wrote about today's events, work and feelings. If you have words of praise, encouragement, understanding, enlightenment that you can give to yourself in this regard, please write it freely."
+    ]
     return render_template('calendar/create/index.html',
         emotion_contents=emotion_contents,
-        emotion_degrees=emotion_degrees
+        emotion_degrees=emotion_degrees,
+        message=message
     )
 
 @app.route("/calendar/emotion/<int:id>", methods=['GET', 'POST'])
