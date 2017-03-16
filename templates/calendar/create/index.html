@@ -13,24 +13,40 @@
 <div id="message-container">
   {% include "calendar/create/message.html" %}
 </div>
+<div id="slider-container">
+  {% include "calendar/create/slider.html" %}
+</div>
 {% endblock %}
 
 {% block script %}
 <script>
   $("#degree-container").hide();
   $("#message-container").hide();
+  $("#slider-container").hide();
 
   $("#degree").on("click", function() {
     $("#emotion-container").hide();
     $("#degree-container").show();
+    $("#message-container").hide();
+  });
+  $("#emotion").on("click", function() {
+    $("#emotion-container").show();
+    $("#degree-container").hide();
   });
   $("#message").on("click", function() {
     $("#degree-container").hide();
     $("#message-container").show();
+    $("#slider-container").hide();
   });
-  $("#emotion").on("click", function() {
-    $("#emotion-container").show();
+  $("#slider").on("click", function() {
     $("#message-container").hide();
+    $("#slider-container").show();
+  });
+
+  $('#ex1').slider({
+    formatter: function(value) {
+      return 'Current value: ' + value;
+    }
   });
 
   $("#submit").on("click", function() {
