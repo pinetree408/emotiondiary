@@ -1,0 +1,113 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<h2 class="centerText">Patient Health Questionnaire-9 한글판 스케일</h2>
+<p><strong>지난 2주간, 얼마나 자주 다음과 같은 문제들로 곤란을 겪으셨습니까?</strong> 지난 2주 동안에 아래와 같은 생각을 한 날을 헤아려서 해당하는 곳에 체크하세요.</p>
+<form id="{{ testName }}" action="{{ url_for('tests') }}" method="POST">
+<table>
+<tr id="headerRow">
+  <td class="questionColm"><strong></strong></td>
+  <td class="ratingColm"><strong>없음</strong></td>
+  <td class="ratingColm"><strong>2, 3일 이상</strong></td>
+  <td class="ratingColm"><strong>7일 이상</strong></td>
+  <td class="ratingColm"><strong>거의 매일</strong></td>
+</tr>
+
+<tr class="questionRow">
+  <td class="questionColm">1. 기분이 가라앉거나, 우울하거나, 희망이 없다고 느꼈다. </td>
+  <td><input type="radio" name="var1" value="0"></td>
+  <td><input type="radio" name="var1" value="1"></td>
+  <td><input type="radio" name="var1" value="2"></td>
+  <td><input type="radio" name="var1" value="3"></td>
+</tr>
+
+<tr class="questionRow">
+  <td class="questionColm">2. 평소 하던 일에 대한 흥미가 없어지거나 즐거움을 느끼지 못했다. </td>
+  <td><input type="radio" name="var2" value="0"></td>
+  <td><input type="radio" name="var2" value="1"></td>
+  <td><input type="radio" name="var2" value="2"></td>
+  <td><input type="radio" name="var2" value="3"></td>
+</tr>
+
+<tr class="questionRow">
+  <td class="questionColm">3. 잠들기가 어렵거나 자주 깼다 / 혹은 너무 많이 잤다. </td>
+  <td><input type="radio" name="var3" value="0"></td>
+  <td><input type="radio" name="var3" value="1"></td>
+  <td><input type="radio" name="var3" value="2"></td>
+  <td><input type="radio" name="var3" value="3"></td>
+</tr>
+
+<table>
+<tr id="headerRow">
+  <td class="questionColm"><strong></strong></td>
+  <td class="ratingColm"><strong>없음</strong></td>
+  <td class="ratingColm"><strong>2, 3일 이상</strong></td>
+  <td class="ratingColm"><strong>7일 이상</strong></td>
+  <td class="ratingColm"><strong>거의 매일</strong></td>
+</tr>
+
+<tr class="questionRow">
+  <td class="questionColm">4. 평소보다 식욕이 줄었다 / 혹은 평소보다 많이 먹었다. </td>
+  <td><input type="radio" name="var4" value="0"></td>
+  <td><input type="radio" name="var4" value="1"></td>
+  <td><input type="radio" name="var4" value="2"></td>
+  <td><input type="radio" name="var4" value="3"></td>
+</tr>
+
+<tr class="questionRow">
+  <td class="questionColm">5. 다른 사람들이 눈치 챌 정도로 평소보다 말과 행동이 느려졌다 / 혹은 너무 안절부절 못해서 가만히 앉아있을 수 없었다. </td>
+  <td><input type="radio" name="var5" value="0"></td>
+  <td><input type="radio" name="var5" value="1"></td>
+  <td><input type="radio" name="var5" value="2"></td>
+  <td><input type="radio" name="var5" value="3"></td>
+</tr>
+
+<tr class="questionRow">
+  <td class="questionColm">6. 피곤하고 기운이 없었다. </td>
+  <td><input type="radio" name="var6" value="0"></td>
+  <td><input type="radio" name="var6" value="1"></td>
+  <td><input type="radio" name="var6" value="2"></td>
+  <td><input type="radio" name="var6" value="3"></td>
+</tr>
+
+<table>
+<tr id="headerRow">
+  <td class="questionColm"><strong></strong></td>
+  <td class="ratingColm"><strong>없음</strong></td>
+  <td class="ratingColm"><strong>2, 3일 이상</strong></td>
+  <td class="ratingColm"><strong>7일 이상</strong></td>
+  <td class="ratingColm"><strong>거의 매일</strong></td>
+</tr>
+
+<tr class="questionRow">
+  <td class="questionColm">7. 내가 잘못 했거나, 실패했다는 생각이 들었다 / 혹은 자신과 가족을 실망시켰다고 생각했다. </td>
+  <td><input type="radio" name="var7" value="0"></td>
+  <td><input type="radio" name="var7" value="1"></td>
+  <td><input type="radio" name="var7" value="2"></td>
+  <td><input type="radio" name="var7" value="3"></td>
+</tr>
+
+<tr class="questionRow">
+  <td class="questionColm">8. 신문을 읽거나 TV를 보는 것과 같은 일상적인 일에도 집중할 수가 없었다. </td>
+  <td><input type="radio" name="var8" value="0"></td>
+  <td><input type="radio" name="var8" value="1"></td>
+  <td><input type="radio" name="var8" value="2"></td>
+  <td><input type="radio" name="var8" value="3"></td>
+</tr>
+
+<tr class="questionRow">
+  <td class="questionColm">9. 차라리 죽는 것이 더 낫겠다고 생각했다 / 혹은 자해할 생각을 했다. </td>
+  <td><input type="radio" name="var9" value="0"></td>
+  <td><input type="radio" name="var9" value="1"></td>
+  <td><input type="radio" name="var9" value="2"></td>
+  <td><input type="radio" name="var9" value="3"></td>
+</tr>
+
+</table>
+  <input type="submit" value="제출">
+</form>
+{% endblock %}
+
+{% block script %}
+{% endblock %}
