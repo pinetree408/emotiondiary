@@ -246,6 +246,10 @@ def game():
 def game_instruction():
     return render_template("game/instructions.html")
 
+@app.route("/about")
+def about():
+    return render_template("about/index.html")
+
 @app.route('/login')
 def login():
     return facebook.authorize(callback=url_for('facebook_authorized',
