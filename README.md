@@ -11,7 +11,3 @@ pip install -r requirements.txt
 # (Settings for git submodule) -> to be continue
 python app.py
 ```
-
-# License
-all directories and their contents are Copyright Lee Sang-Yoon.
-You may not reuse anything therein without my permission.
